@@ -1,0 +1,54 @@
+using System.Collections;
+
+using System.Collections.Generic;
+
+using UnityEngine;
+
+public class DoorHolder : MonoBehaviour
+{
+
+    public bool isopen = false;
+
+    public Animator anim;
+
+    void start()
+    {
+
+
+        anim = gameObject.GetComponent<Animator>();
+
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+
+        print("hit");
+
+        if (col.tag == "Player" && Input.GetKeyDown("e"))
+        {
+            change();
+        }
+
+    }
+
+    void change()
+    {
+
+        isopen = !isopen;
+
+        if (isopen)
+        {
+
+            anim.SetBool("isopen", true);
+
+        }
+        else
+        {
+
+            anim.SetBool("isopen", false);
+
+        }
+
+    }
+
+}

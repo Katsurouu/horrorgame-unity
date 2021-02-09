@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityStandardAssets.ImageEffects;
+using UnityEngine.Audio;
+
+public class JumpScare : MonoBehaviour {
+
+    private enemy script;
+    public GameObject monster;
+
+    //for enemy script
+    [HideInInspector]
+    public float timer = 2f;
+    [HideInInspector]
+    public bool timeron = false;
+
+
+
+    // Use this for initialization
+    void Start () {
+        script = FindObjectOfType<enemy>();
+        monster.SetActive(false);
+    }
+	
+	// Update is called once per frame
+	void Update () {
+
+        if (timer <= -1)
+        {
+            script.blur.blurAmount = 0.0f;
+        }
+
+        if(timeron)
+        {
+            timer -= Time.deltaTime;
+        }
+
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            monster.SetActive(true);
+            script.monsterAttack = true;
+            script.monsterDead = false;
+        }
+    }
+}

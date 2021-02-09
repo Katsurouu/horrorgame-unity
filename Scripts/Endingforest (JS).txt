@@ -1,0 +1,41 @@
+#pragma strict
+
+ var gameobject : GameObject; 
+ var gameobject2 : GameObject; 
+ var gameobject3 : GameObject; 
+ var gameobject4 : GameObject; 
+ var gameobject5 : GameObject; 
+ var gameobject6 : GameObject; 
+ var self : GameObject;
+ var Seconds = 1.0;
+ 
+     
+ function Start (){ 
+     gameobject.GetComponent.<Renderer>().enabled = false;
+	 gameobject2.GetComponent.<Renderer>().enabled = false;
+	 gameobject3.GetComponent.<Renderer>().enabled = false;
+	 gameobject4.GetComponent.<Renderer>().enabled = false;
+	 gameobject5.GetComponent.<Renderer>().enabled = false;
+	 gameobject6.GetComponent.<Renderer>().enabled = false;
+ }
+     
+ function OnTriggerEnter (col:Collider){ 
+     gameobject.GetComponent.<Renderer>().enabled = true; 
+	 gameobject2.GetComponent.<Renderer>().enabled = true; 
+	 gameobject3.GetComponent.<Renderer>().enabled = true; 
+	 gameobject4.GetComponent.<Renderer>().enabled = true; 
+	 gameobject5.GetComponent.<Renderer>().enabled = true; 
+	 gameobject6.GetComponent.<Renderer>().enabled = true; 
+     Destroy(); 
+ }
+     
+ function Destroy(){
+     yield WaitForSeconds(Seconds); 
+     Destroy(gameobject); 
+	 Destroy(gameobject2);
+	 Destroy(gameobject3);
+	 Destroy(gameobject4);
+	 Destroy(gameobject5);
+	 Destroy(gameobject6);
+	 Destroy(self);
+ }

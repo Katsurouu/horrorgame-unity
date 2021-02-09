@@ -1,0 +1,28 @@
+#pragma strict
+
+ var gameobject : GameObject;
+ var close : GameObject;
+ var scream : AudioClip;
+ var end : AudioClip; 
+ var self : GameObject;
+ var Seconds = 1.0;
+ var credits : GameObject;
+ 
+     
+ function Start (){ 
+ 	close.GetComponent.<Renderer>().enabled = true;
+ }
+     
+ function OnTriggerEnter (col:Collider){ 
+     GetComponent.<AudioSource>().PlayOneShot(scream);
+     Destroy(); 
+ }
+     
+ function Destroy(){
+     yield WaitForSeconds(Seconds); 
+     GetComponent.<AudioSource>().PlayOneShot(end);
+     Destroy(gameobject); 
+	 Destroy(self);
+	 close.GetComponent.<Renderer>().enabled = true;
+	 credits.SetActive(true);
+ }

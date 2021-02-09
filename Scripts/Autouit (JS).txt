@@ -1,0 +1,16 @@
+#pragma strict
+
+ var car : GameObject; 
+ var fps : GameObject;
+ 
+     
+ function Start (){ 
+     car.SetActive(true);
+	 fps.SetActive(false);
+ }
+     
+ function OnTriggerEnter (col:Collider){ 
+     car.SetActive(false);
+     fps.SetActive(true);
+ }
+     

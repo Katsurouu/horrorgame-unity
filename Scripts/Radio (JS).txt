@@ -1,0 +1,15 @@
+#pragma strict
+
+var winner : AudioClip;
+
+function Start () {
+	
+}
+
+function Update () {
+	
+}
+
+function OnTriggerEnter () {
+	GetComponent.<AudioSource>().PlayOneShot(winner);
+}

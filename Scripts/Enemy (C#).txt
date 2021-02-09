@@ -1,0 +1,116 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityStandardAssets.ImageEffects;
+using UnityEngine.Audio;
+
+
+public class enemy : MonoBehaviour {
+    public Transform player;
+    public Transform monster;
+    private NavMeshAgent NavMeshAgent;
+    public Animator animator;
+    [HideInInspector]
+    public bool monsterAttack;
+    [HideInInspector]
+    public bool monsterDead;
+    private float currentD;
+    [HideInInspector]
+    public MotionBlur blur;
+    private VignetteAndChromaticAberration vignette;
+    private JumpScare script;
+    public AudioClip screamSound;
+    public AudioClip[] footstepsSound;
+    public AudioClip chaseSound;
+    AudioSource audio;
+
+
+
+
+    void Start () {
+        
+        script = FindObjectOfType<JumpScare>();
+        audio = GetComponent<AudioSource>();
+        blur = GameObject.Find("FirstPersonCharacter").GetComponent<MotionBlur>();
+        vignette = GameObject.Find("FirstPersonCharacter").GetComponent<VignetteAndChromaticAberration>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
+        currentD = Vector3.Distance(transform.position, player.transform.position);
+        vignette.intensity = 0.036f;
+
+
+
+    }
+
+    public void PlayFootstepsSound ()
+    {
+        audio.PlayOneShot(footstepsSound[Random.Range(0, footstepsSound.Length)]);
+    }
+
+
+	void Update () {
+        currentD = Vector3.Distance(transform.position, player.transform.position);
+
+        if (player)
+        {
+            NavMeshAgent.SetDestination(player.position);
+        }
+
+        if (monsterAttack)
+        {
+            animator.SetBool("run", true);
+            animator.SetBool("dis", false);
+            audio.PlayOneShot(chaseSound, 0.3F);
+        }
+
+        if (monsterDead)
+        {
+            animator.SetBool("run", false);
+            animator.SetBool("dis", true);
+        }
+
+        if (currentD < 4.5)
+        {
+            NavMeshAgent.SetDestination(transform.position);
+            monsterDead = true;
+            monsterAttack = false;
+            blur.blurAmount = 0.8f;
+            vignette.intensity = 0.403f;
+        }
+
+        if(NavMeshAgent.stoppingDistance == 1.5)
+        {
+            monsterDead = true;
+            monsterAttack = false;
+        }
+
+        if(monster = null)
+        {
+            blur.blurAmount = 0.0f;
+            vignette.intensity = 0.036f;
+        }
+
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("dissapear"))
+
+        {
+            audio.PlayOneShot(screamSound, 0.7F);
+            script.timeron = true;
+            Debug.Log("anim has been played");
+        }
+
+        if (script.timer <= 0)
+        {
+            
+            vignette.intensity = 0.036f;
+            monster = null;
+            Debug.Log("timer = 0");
+           
+        }
+        if (script.timer <= 0 & vignette.intensity == 0.036f)
+        {
+            Destroy(gameObject);
+        }
+
+
+    }
+}

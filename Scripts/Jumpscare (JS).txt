@@ -1,0 +1,21 @@
+#pragma strict
+
+ var gameobject : GameObject; 
+ var self : GameObject;
+ var Seconds = 1.0;
+ 
+     
+ function Start (){ 
+     gameobject.GetComponent.<Renderer>().enabled = false;
+ }
+     
+ function OnTriggerEnter (col:Collider){ 
+     gameobject.GetComponent.<Renderer>().enabled = true; 
+     Destroy(); 
+ }
+     
+ function Destroy(){
+     yield WaitForSeconds(Seconds); 
+     Destroy(gameobject); 
+	 Destroy(self);
+ }
